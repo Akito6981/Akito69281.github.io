@@ -1,0 +1,205 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Graphics</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .graphic-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        canvas {
+            border: 2px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="graphic-container">
+        <canvas id="canvas1" width="200" height="200"></canvas>
+        <canvas id="canvas2" width="200" height="200"></canvas>
+        <canvas id="canvas3" width="200" height="200"></canvas>
+        <canvas id="canvas4" width="200" height="200"></canvas>
+        <canvas id="canvas5" width="200" height="200"></canvas>
+        <canvas id="canvas6" width="200" height="200"></canvas>
+        <canvas id="canvas7" width="200" height="200"></canvas>
+        <canvas id="canvas8" width="200" height="200"></canvas>
+    </div>
+
+    <script>
+        function drawRectangle(ctx, color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, 200, 200);
+        }
+
+        function drawSmileyFace(ctx) {
+            ctx.beginPath();
+            ctx.arc(100, 100, 80, 0, 2 * Math.PI);
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(80, 80, 10, 0, 2 * Math.PI);
+            ctx.fillStyle = 'black';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(120, 80, 10, 0, 2 * Math.PI);
+            ctx.fillStyle = 'black';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(100, 120, 40, 0, Math.PI);
+            ctx.stroke();
+        }
+
+        function drawRandomCircles(ctx) {
+            for (let i = 0; i < 5; i++) {
+                const x = Math.random() * 200;
+                const y = Math.random() * 200;
+                const radius = Math.random() * 20 + 10;
+
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, 2 * Math.PI);
+                ctx.fillStyle = `rgb(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255})`;
+                ctx.fill();
+            }
+        }
+
+        function drawGradientRectangle(ctx) {
+            const gradient = ctx.createLinearGradient(0, 0, 200, 0);
+            gradient.addColorStop(0, 'blue');
+            gradient.addColorStop(1, 'green');
+
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 200, 200);
+        }
+
+        function drawSimpleHouse(ctx) {
+            ctx.fillStyle = 'brown';
+            ctx.fillRect(50, 100, 100, 80);
+
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            ctx.moveTo(50, 100);
+            ctx.lineTo(150, 100);
+            ctx.lineTo(100, 50);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawEarth(ctx) {
+            ctx.beginPath();
+            ctx.arc(100, 100, 90, 0, 2 * Math.PI);
+            ctx.fillStyle = 'blue';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(100, 100, 70, 0, 2 * Math.PI);
+            ctx.fillStyle = 'green';
+            ctx.fill();
+        }
+
+        function drawBird(ctx) {
+            ctx.fillStyle = 'orange'; // Body color
+            ctx.beginPath();
+            ctx.arc(100, 100, 20, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Wings
+            ctx.fillStyle = 'blue';
+            ctx.beginPath();
+            ctx.moveTo(100, 90);
+            ctx.lineTo(120, 70);
+            ctx.lineTo(140, 90);
+            ctx.closePath();
+            ctx.fill();
+
+            // Eye
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(105, 95, 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawPyramid(ctx) {
+            ctx.fillStyle = 'brown';
+            ctx.beginPath();
+            ctx.moveTo(100, 20);
+            ctx.lineTo(50, 150);
+            ctx.lineTo(150, 150);
+            ctx.closePath();
+            ctx.fill();
+
+            // Lines
+            ctx.strokeStyle = 'black';
+            ctx.beginPath();
+            ctx.moveTo(100, 20);
+            ctx.lineTo(100, 150);
+            ctx.moveTo(100, 20);
+            ctx.lineTo(50, 150);
+            ctx.moveTo(100, 20);
+            ctx.lineTo(150, 150);
+            ctx.stroke();
+        }
+
+        function drawMoonAndStars(ctx) {
+            // Draw moon
+            ctx.beginPath();
+            ctx.arc(120, 80, 40, 0, 2 * Math.PI);
+            ctx.fillStyle = 'lightgrey';
+            ctx.fill();
+
+            // Draw stars
+            ctx.fillStyle = 'white';
+            ctx.fillRect(30, 30, 5, 5);
+            ctx.fillRect(60, 120, 5, 5);
+            ctx.fillRect(150, 150, 5, 5);
+            ctx.fillRect(180, 70, 5, 5);
+        }
+
+        const canvases = document.querySelectorAll('canvas');
+        canvases.forEach((canvas, index) => {
+            const ctx = canvas.getContext('2d');
+            drawRectangle(ctx, 'skyblue'); // Default background color
+
+            switch (index) {
+                case 0:
+                    drawBird(ctx);
+                    break;
+                case 1:
+                    drawSmileyFace(ctx);
+                    break;
+                case 2:
+                    drawRandomCircles(ctx);
+                    break;
+                case 3:
+                    drawGradientRectangle(ctx);
+                    break;
+                case 4:
+                    drawSimpleHouse(ctx);
+                    break;
+                case 5:
+                    drawEarth(ctx);
+                    break;
+                case 6:
+                    drawPyramid(ctx);
+                    break;
+                case 7:
+                    drawMoonAndStars(ctx);
+                    break;
+                default:
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
